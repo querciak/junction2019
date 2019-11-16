@@ -114,6 +114,7 @@ class NuScoModel {
             return dummyQuery
         }
 
+
     }
 
 }

@@ -5,7 +5,7 @@
     <color name="colorAccent">#ff3c00</color>
     <color name="background">#ffffff</color>
     <color name="element">#cdcdcd</color>
-
+    <color name="dot">#ff6b00</color>
 
     <color name="nuscoA">#EE732E</color>
     <color name="nuscoB">#F19149</color>

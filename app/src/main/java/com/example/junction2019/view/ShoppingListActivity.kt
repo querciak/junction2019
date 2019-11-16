@@ -35,6 +35,12 @@ class ShoppingListActivity: AppCompatActivity() {
             // get the query text from the edit box
             var queryProduct = productToRetrieve.text.toString()
 
+            //url: http://127.0.0.1:5000/autocomplete/
+            //val url = "http://127.0.0.1:5000/autocomplete/" + queryProduct
+
+
+
+
             // query data from model
             var queriedProducts = NuScoModel.queryProductsByKeyWord(queryProduct)
             list.adapter = MyCustomAdapter(this,queriedProducts)

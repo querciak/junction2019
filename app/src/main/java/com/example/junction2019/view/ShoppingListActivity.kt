@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.android.volley.toolbox.Volley
 import com.example.junction2019.R
 import com.example.junction2019.model.NuScoModel
 import com.example.junction2019.model.Products
@@ -21,11 +22,12 @@ import java.security.AccessController.getContext
 
 class ShoppingListActivity: AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shoppinglist_layout)
+
+        NuScoModel.activity = this
+
 
         val list = findViewById<ListView>(R.id.productList)
         val productToRetrieve = findViewById<TextView>(R.id.search)
@@ -38,16 +40,7 @@ class ShoppingListActivity: AppCompatActivity() {
             // query data from model
             var queriedProducts = NuScoModel.queryProductsByKeyWord(queryProduct)
             list.adapter = MyCustomAdapter(this,queriedProducts)
-
         }
-
-
-
-
-
-
-
-
     }
 
     /*fun showProducts(){
@@ -59,6 +52,8 @@ class ShoppingListActivity: AppCompatActivity() {
     }
 
      */
+
+
 
     private class MyCustomAdapter(context: Context, list: Array<Products>): BaseAdapter(){
 

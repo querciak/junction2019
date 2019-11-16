@@ -16,10 +16,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // click listener for nusco history button
         nutritionButton.setOnClickListener {
             val intent = Intent(this, NutriHistoryActivity::class.java)
                 startActivity(intent)
         }
+
 
 
     }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Junction2019</string>
+    <string name="k_market_logo">k-market-logo</string>
+    <string name="kmarketlogo">kmarketlogo</string>
 </resources>

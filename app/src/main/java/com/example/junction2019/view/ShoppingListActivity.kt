@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.junction2019.R
+import com.example.junction2019.model.NuScoModel
 import com.example.junction2019.model.Products
 import com.example.junction2019.presenter.ShoppinglistPresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,18 +27,22 @@ class ShoppingListActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shoppinglist_layout)
 
-        var cereal = arrayOf(Products("cereal 1"), Products("cereal 2"), Products("cereal 3"))
+
+
+        //arrayOf(Products("cereal 1"), Products("cereal 2"), Products("cereal 3"))
         var yogurt = arrayOf(Products("yogurt x"), Products("yogurt y"), Products("yogurt z"))
         val list = findViewById<ListView>(R.id.productList)
         val productToRetrieve = findViewById<TextView>(R.id.search)
         val search = findViewById<ImageView>(R.id.imageView6)
 
         search.setOnClickListener{
-            if (productToRetrieve.text.toString() == "cereal") {
-                list.adapter = MyCustomAdapter(this, cereal)
-            }else if(productToRetrieve.text.toString() == "yogurt"){
-                list.adapter = MyCustomAdapter(this, yogurt)
-            }
+            // get the query text from the edit box
+            var queryProduct = productToRetrieve.text.toString()
+
+            // query data from model
+            var queriedProducts = NuScoModel.queryProductsByKeyWord(queryProduct)
+            list.adapter = MyCustomAdapter(this,queriedProducts)
+
         }
 
 

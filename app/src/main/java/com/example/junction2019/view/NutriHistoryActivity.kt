@@ -5,11 +5,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.junction2019.R
 import com.example.junction2019.model.NuScoModel
 import com.example.junction2019.model.Parameters
 import com.example.junction2019.presenter.NutriHistoryActivityPresenter
+import kotlinx.android.synthetic.main.nutri_history.*
 import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
@@ -31,8 +33,11 @@ class NutriHistoryActivity : AppCompatActivity() {
         presenter.initNuScoreText()
 
         // event handlers
-        val pieChartView = findViewById<PieChartView>(R.id.nutri_pie_chart)
-        pieChartView.onValueTouchListener = ValueTouchListener(this,presenter)
+        nutri_pie_chart.onValueTouchListener = ValueTouchListener(this,presenter)
+        btn_weekly.setOnClickListener(HandleGrouppedButtons(this,presenter))
+        btn_monthly.setOnClickListener(HandleGrouppedButtons(this,presenter))
+        btn_yearly.setOnClickListener(HandleGrouppedButtons(this,presenter))
+
     }
 
     private class ValueTouchListener : PieChartOnValueSelectListener{
@@ -59,6 +64,20 @@ class NutriHistoryActivity : AppCompatActivity() {
 
         override fun onValueDeselected() {
             TODO("not implemented -> not relevant for the moment") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
+
+    private class HandleGrouppedButtons : View.OnClickListener{
+        val activity : AppCompatActivity
+        val presenter : NutriHistoryActivityPresenter
+
+        constructor(_activity : AppCompatActivity, _presenter : NutriHistoryActivityPresenter){
+            activity = _activity
+            presenter = _presenter
+        }
+
+        override fun onClick(btn: View?) {
+            presenter.guiHandleGrouppedButtons(btn)
         }
 
     }

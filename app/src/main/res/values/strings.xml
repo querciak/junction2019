@@ -2,4 +2,7 @@
     <string name="app_name">Junction2019</string>
     <string name="k_market_logo">k-market-logo</string>
     <string name="kmarketlogo">kmarketlogo</string>
+    <string name="btn_week_txt">Weekly</string>
+    <string name="btn_month_txt">Monthly</string>
+    <string name="btn_year_txt">Yearly</string>
 </resources>

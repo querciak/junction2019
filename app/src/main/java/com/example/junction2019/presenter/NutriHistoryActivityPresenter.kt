@@ -2,7 +2,9 @@ package com.example.junction2019.presenter
 
 import android.app.Activity
 import android.graphics.Color
+import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import com.example.junction2019.R
 import com.example.junction2019.model.NuScoModel
@@ -15,6 +17,8 @@ import lecho.lib.hellocharts.view.PieChartView
 class NutriHistoryActivityPresenter(_activity: Activity) {
 
     private var activity: Activity = _activity
+    private var activeBtn : Int = Parameters.BUTTONS[Parameters.BTN_WEEK]
+    val buttons = listOf<Button>(activity.findViewById(R.id.btn_weekly),activity.findViewById(R.id.btn_monthly),activity.findViewById(R.id.btn_yearly))
 
     fun initPieChart() {
         // init chart info
@@ -42,8 +46,6 @@ class NutriHistoryActivityPresenter(_activity: Activity) {
         nutriScoreChart.setChartRotation(210,false)
     }
 
-
-
     fun updatePieChart() {
 
     }
@@ -68,5 +70,24 @@ class NutriHistoryActivityPresenter(_activity: Activity) {
         nuScoText.setTextColor(colorOfScore)
     }
 
+    fun guiHandleGrouppedButtons(btn : View?) {
+        if(btn?.id != null){
+            val pressedButton = activity.findViewById<Button>(btn.id)
+            Log.d("BUTTONTAG", "pressed button id is (${pressedButton.id})")
+
+            // check whether the active button is the pressed one, if not update GUI
+            if(buttons[activeBtn] == pressedButton){
+                // do nothing right now
+            }
+            else{
+                for(btn in buttons){
+                    btn.setBackgroundColor(activity.getResources().getColor(R.color.btn_gray))
+                }
+                pressedButton.setBackgroundColor(activity.getResources().getColor(R.color.btn_orange))
+                activeBtn = buttons.indexOf(pressedButton)
+            }
+
+        }
+    }
 
 }

@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         //---------------------------------------------------------------------------------toolbar
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
-        actionBar!!.title = "Chose an index"
+        actionBar!!.title = "Choose an index"
     }
 
 

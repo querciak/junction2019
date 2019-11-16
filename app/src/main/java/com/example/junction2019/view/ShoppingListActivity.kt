@@ -26,7 +26,7 @@ class ShoppingListActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shoppinglist_layout)
-        
+
         val list = findViewById<ListView>(R.id.productList)
         val productToRetrieve = findViewById<TextView>(R.id.search)
         val search = findViewById<ImageView>(R.id.imageView6)

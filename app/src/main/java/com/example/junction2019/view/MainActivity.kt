@@ -14,10 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //---------------------------------------------------------------------------------toolbar
-        setSupportActionBar(toolbar)
-        val actionBar = supportActionBar
-        actionBar!!.title = "Choose an index"
+
     }
 
 

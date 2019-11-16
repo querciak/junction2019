@@ -5,4 +5,5 @@
     <string name="btn_week_txt">Weekly</string>
     <string name="btn_month_txt">Monthly</string>
     <string name="btn_year_txt">Yearly</string>
+    <string name="welcome_txt">Hey Mikka,</string>
 </resources>

@@ -49,9 +49,9 @@
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="100dp"
             android:gravity="center"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="50dp"
+            android:textSize="50sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/nutri_pie_chart"
             app:layout_constraintCircle="@id/nutri_pie_chart"
@@ -61,6 +61,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="409dp"
         android:layout_height="25dp"
         android:orientation="horizontal"
@@ -95,6 +96,30 @@
             android:text="@string/btn_year_txt"
             android:textColor="@color/txt_light" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="176dp"
+        android:text="@string/welcome_txt"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

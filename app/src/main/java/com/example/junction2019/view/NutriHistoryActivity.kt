@@ -12,7 +12,6 @@ class NutriHistoryActivity : AppCompatActivity() {
         var presenter: NutriHistoryActivityPresenter? = NutriHistoryActivityPresenter(_activity = this)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nutri_history)

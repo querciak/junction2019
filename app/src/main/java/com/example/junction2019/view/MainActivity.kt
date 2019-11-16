@@ -24,12 +24,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ShoppingListActivity::class.java)
             startActivity(intent)
         }
-
-
-
     }
-
-
-
-
 }

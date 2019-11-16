@@ -3,6 +3,18 @@
     <color name="colorPrimary">#ff7700</color>
     <color name="colorPrimaryDark">#ff7700</color>
     <color name="colorAccent">#ff3c00</color>
+<<<<<<< HEAD
     <color name="background">#ffffff</color>
     <color name="element">#cdcdcd</color>
+=======
+
+    <color name="nuscoA">#EE732E</color>
+    <color name="nuscoB">#F19149</color>
+    <color name="nuscoC">#F4B788</color>
+    <color name="nuscoD">#FBE8DA</color>
+    <color name="nuscoE">#FDF7F3</color>
+    <color name="background_gray">#C5C5C5</color>
+    <color name="background_white">#FFFFFF</color>
+
+>>>>>>> 90023dcc1e7efb2bb6ad209d7db4cd9025a63b96
 </resources>

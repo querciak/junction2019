@@ -20,6 +20,9 @@
         <activity android:name=".view.NutriHistoryActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
+        <activity android:name=".view.ShoppingListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
 
     </application>
 

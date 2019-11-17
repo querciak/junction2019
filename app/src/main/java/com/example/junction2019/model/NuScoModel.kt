@@ -16,11 +16,16 @@ class NuScoModel {
         var NUSCORE_DEFAULT_VALUE = listOf<Float>(0.2f, 0.3f, 0.1f, 0.3f, 0.1f)
         var PROFILE_DEFAULT_VALUE: String = "D"
 
-        fun parseNuScoHistoryData(): List<Float> {
+        fun parseNuScoHistoryData(timespan : Int): List<Float> {
             //TODO request data from back-end
 
             // returning dummy data for now
-            return convertNuScoHistoryQueryData(NuScoModelTest.QUERY_HISTORY)
+            when(timespan){
+                0 -> return convertNuScoHistoryQueryData(NuScoModelTest.QUERY_HISTORY_WEEK)
+                1 -> return convertNuScoHistoryQueryData(NuScoModelTest.QUERY_HISTORY_MONTH)
+                2 -> return convertNuScoHistoryQueryData(NuScoModelTest.QUERY_HISTORY_YEAR)
+                else -> return emptyList()
+            }
         }
 
         fun convertNuScoHistoryQueryData(queryString :String) : List<Float> {
@@ -53,36 +58,19 @@ class NuScoModel {
             return listOf(data.history!!.nutritionDist!!.A!!.toFloat(),data.history!!.nutritionDist!!.B!!.toFloat(),data!!.history!!.nutritionDist!!.C!!.toFloat(),data!!.history!!.nutritionDist!!.D!!.toFloat(),data!!.history!!.nutritionDist!!.E!!.toFloat())
         }
 
-        fun getNuScoAverage(): String {
+        fun getNuScoAverage(timespan: Int): String {
             // TODO connect to back-end
 
             // returning dummy data
-            return convertNuScoAverage(NuScoModelTest.QUERY_HISTORY)
+            when(timespan){
+                0 -> return convertNuScoAverage(NuScoModelTest.QUERY_HISTORY_WEEK)
+                1 -> return convertNuScoAverage(NuScoModelTest.QUERY_HISTORY_MONTH)
+                2 -> return convertNuScoAverage(NuScoModelTest.QUERY_HISTORY_YEAR)
+                else -> return "C"
+            }
         }
 
         fun convertNuScoAverage(queryString :String) :String{
-
-            /*
-            val historyResult = Klaxon()
-                .parse<History>(queryString)
-            if(historyResult == null) {
-                return PROFILE_DEFAULT_VALUE
-            }
-            val nutriScoreResult = Klaxon()
-                .parse<NutriScore>(historyResult.history)
-            if(nutriScoreResult == null){
-                return PROFILE_DEFAULT_VALUE
-            }
-            val scores = Klaxon()
-                .parse<ScoresInHistory>(nutriScoreResult.nutriScoreHist)
-            if (scores == null)
-            {
-                return PROFILE_DEFAULT_VALUE
-            }
-            Log.d("NUSCO",scores.profile)
-            return scores.profile
-             */
-
             var gson = Gson()
 
             var data = gson.fromJson(queryString, NutriScoreHistory::class.java)
@@ -119,6 +107,22 @@ class NuScoModel {
                 return emptyList()
             }
         }
+
+
+        fun queryImproveInformation(queryProduct: String) : List<CandidatesItem>{
+            //TODO perform GET request to fetch information from back-end
+
+            // return dummy information
+            return convertImproveInformation(NuScoModelTest.QUERY_IMPROVE)
+        }
+
+        fun convertImproveInformation(queryResponse: String) : List<CandidatesItem> {
+            var gson = Gson()
+            var data = gson.fromJson(queryResponse, ImproveResponse::class.java)
+
+            return data.recommendations!!.candidates as List<CandidatesItem>
+        }
+
 
         //---------------- TRIED AND FAILED -------------------//
         // constants

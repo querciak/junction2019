@@ -56,6 +56,7 @@ class NutriHistoryActivity : AppCompatActivity() {
 
         override fun onValueSelected(arcIndex: Int, value: SliceValue?) {
             Log.d("TAG","arc index is $arcIndex with a value of $value")
+            /*
             var nusco_score = NuScoModel.getNuScoAverage()
             when (arcIndex) {
                 Parameters.NUTRI_A -> nusco_score = Parameters.NUTRI_A_CHAR
@@ -65,6 +66,7 @@ class NutriHistoryActivity : AppCompatActivity() {
                 else -> nusco_score = Parameters.NUTRI_E_CHAR
             }
             presenter.initNuScoreText()
+            */
         }
 
         override fun onValueDeselected() {

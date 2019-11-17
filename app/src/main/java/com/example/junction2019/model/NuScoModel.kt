@@ -1,30 +1,137 @@
 package com.example.junction2019.model
 
-import android.content.Context
+import android.icu.text.Bidi
+
+
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import com.example.junction2019.view.ShoppingListActivity
-import java.net.HttpURLConnection
-import java.net.URL
+import com.beust.klaxon.Klaxon
+import com.example.junction2019.jsonmodels.*
+import com.google.gson.Gson
+
 
 class NuScoModel {
     // http://127.0.0.1:5000/autocomplete/mait
 
     companion object {
+        var NUSCORE_DEFAULT_VALUE = listOf<Float>(0.2f, 0.3f, 0.1f, 0.3f, 0.1f)
+        var PROFILE_DEFAULT_VALUE: String = "D"
+
+        fun parseNuScoHistoryData(): List<Float> {
+            //TODO request data from back-end
+
+            // returning dummy data for now
+            return convertNuScoHistoryQueryData(NuScoModelTest.QUERY_HISTORY)
+        }
+
+        fun convertNuScoHistoryQueryData(queryString :String) : List<Float> {
+
+            var gson = Gson()
+
+            var data = gson.fromJson(queryString, NutriScoreHistory::class.java)
+            Log.d("DATA", data.toString())
+
+            /*
+            val historyResult = Klaxon()
+                .parse<History>(queryString)
+            if(historyResult == null) {
+                return NUSCORE_DEFAULT_VALUE
+            }
+            val nutriScoreResult = Klaxon()
+                .parse<NutriScore>(historyResult.history)
+            if(nutriScoreResult == null){
+                return NUSCORE_DEFAULT_VALUE
+            }
+            val scores = Klaxon()
+                .parse<ScoresInHistory>(nutriScoreResult.nutriScoreHist)
+            if (scores == null)
+            {
+                return NUSCORE_DEFAULT_VALUE
+            }
+            return listOf(scores.scoreA,scores.scoreB,scores.scoreC,scores.scoreD,scores.scoreE)
+             */
+
+            return listOf(data.history!!.nutritionDist!!.A!!.toFloat(),data.history!!.nutritionDist!!.B!!.toFloat(),data!!.history!!.nutritionDist!!.C!!.toFloat(),data!!.history!!.nutritionDist!!.D!!.toFloat(),data!!.history!!.nutritionDist!!.E!!.toFloat())
+        }
+
+        fun getNuScoAverage(): String {
+            // TODO connect to back-end
+
+            // returning dummy data
+            return convertNuScoAverage(NuScoModelTest.QUERY_HISTORY)
+        }
+
+        fun convertNuScoAverage(queryString :String) :String{
+
+            /*
+            val historyResult = Klaxon()
+                .parse<History>(queryString)
+            if(historyResult == null) {
+                return PROFILE_DEFAULT_VALUE
+            }
+            val nutriScoreResult = Klaxon()
+                .parse<NutriScore>(historyResult.history)
+            if(nutriScoreResult == null){
+                return PROFILE_DEFAULT_VALUE
+            }
+            val scores = Klaxon()
+                .parse<ScoresInHistory>(nutriScoreResult.nutriScoreHist)
+            if (scores == null)
+            {
+                return PROFILE_DEFAULT_VALUE
+            }
+            Log.d("NUSCO",scores.profile)
+            return scores.profile
+             */
+
+            var gson = Gson()
+
+            var data = gson.fromJson(queryString, NutriScoreHistory::class.java)
+            Log.d("DATA", data.toString())
+
+            return data!!.history!!.nutritionDist!!.profile.toString()
+        }
+
+        fun queryProductsByKeyWord(queryProduct: String): List<Product> {
+            //TODO request data from back-end
+
+            // returning dummy data for now
+            return parseAndConvertQuery(queryProduct)
+        }
+
+        fun parseAndConvertQuery(queryProduct: String) : List<Product>{
+            val query : String?
+            when (queryProduct){
+                "milk" -> query = NuScoModelTest.QUERY_MILK
+                "banana" -> query = NuScoModelTest.QUERY_BANANA
+                "coca-cola" -> query = NuScoModelTest.QUERY_COCACOLA
+                else -> query = null
+            }
+            if (query != null) {
+                val result = Klaxon()
+                    .parseArray<Product>(query)
+
+                if (result == null) {
+                    return emptyList()
+                } else {
+                    return result
+                }
+            }else{
+                return emptyList()
+            }
+        }
+
+        //---------------- TRIED AND FAILED -------------------//
         // constants
+        /*
         val _URL = "http://127.0.0.1:5000/"
         val _REQUEST = "autocomplete/"
 
         // shit
-        var activity : AppCompatActivity? = null
+        var activity: AppCompatActivity? = null
 
         // DUMMY RESPONSES
         var nuScoRatios = listOf<Float>(0.2f, 0.3f, 0.1f, 0.3f, 0.1f)
-        var nuSco : Char = 'D'
+        var nuSco: Char = 'D'
         var dummyQuery = arrayOf(Products("danone yoghurt"), Products("oatly yoghurt"))
 
         fun parseNuScoHistoryData(): List<Float> {
@@ -43,78 +150,54 @@ class NuScoModel {
 
         fun queryProductsByKeyWord(queryProduct: String): Array<Products> {
             //TODO request data from back-end
+            var returnedString: String = ""
 
-            //val construct_url = URL(_URL+ _REQUEST+queryProduct)
-            /*
+            val e_url : String = "http://127.0.0.1:5000/autocomplete/milk"
+            Log.d("URL",e_url)
 
-            var returnedString = ""
+            AsyncTaskHandleJson().execute(e_url)
 
-            with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "GET"  // optional default is GET
-
-                //println("\nSent 'GET' request to URL : $url; Response Code : $responseCode")
-
-                inputStream.bufferedReader().use {
-                    it.lines().forEach { line ->
-                        Log.d("QUERY_ANSWER", line)
-                        returnedString += line
-                    }
-                }
-            }
-            */
-
-            var returnedString = ""//URL("https://kesko.azure-api.net/products/N106/6408430001323").readText()
-
-
-            val queue = Volley.newRequestQueue(activity)
-            //val url = getURL
-            val url = "https://kesko.azure-api.net/products/N106/6408430001323"
-
-            // Request a string response from the provided URL.
-            val stringRequest = StringRequest(
-                Request.Method.GET, url,
-                Response.Listener<String> { response ->
-                    // Display the first 500 characters of the response string.
-                    //textView.text = "Response is: ${response.substring(0, 500)}"
-                    returnedString = response.substring(0,500)
-                    Log.d("RIGHT_DICK",returnedString)
-                },
-                Response.ErrorListener {
-                    returnedString = "That didn't work!"
-                    Log.d("DICK","That didn't work!")
-                })
-
-            // Add the request to the RequestQueue.
-            queue.add(stringRequest)
-
-
-
-            /*
-            var returnedString : String = ""
-
-            var url = URL("https://kesko.azure-api.net/products/N106/6408430001323")
-
-            with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "GET"  // optional default is GET
-
-                println("\nSent 'GET' request to URL : $url; Response Code : $responseCode")
-
-                inputStream.bufferedReader().use {
-                    it.lines().forEach { line ->
-                        returnedString += line
-                    }
-                }
-            }*/
-            
             // returning dummy data for now
             return convertProductsQueryToArray(returnedString)
         }
 
-        private fun convertProductsQueryToArray(answer :String) : Array<Products> {
+        private fun convertProductsQueryToArray(answer: String): Array<Products> {
             return dummyQuery
         }
 
+        class AsyncTaskHandleJson : AsyncTask<String, String, String>() {
+            override fun doInBackground(vararg url: String?): String {
+                var text: String
+                val connection = URL(url[0]).openConnection() as HttpURLConnection
+                try {
+                    connection.connect()
+                    text = connection.inputStream.use {
+                        it.reader().use {
+                                reader -> reader.readText()
+                        }
+                    }
+                    Log.d("CONNECT","Connecting..")
+                }catch (e: Exception) {
+                    Log.d("EXCEPTION",e.message.toString())
+                    text = ""
+                }
+                finally {
+                    connection.disconnect()
+                    Log.d("DISCONNECT","Disconnected..")
+                }
+                return text
+            }
 
+            override fun onPostExecute(result: String?) {
+                super.onPostExecute(result)
+                handleJson(result)
+            }
+        }
+
+        private fun handleJson(jsonString: String?) {
+            val jsonArray = JSONArray(jsonString)
+            Log.d("JSON",jsonString)
+        }
+         */
     }
-
 }

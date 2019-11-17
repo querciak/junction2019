@@ -9,12 +9,12 @@
 
     <ImageView
         android:id="@+id/k_market_logo"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:scaleType="fitXY"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/kmarketlogo"
+        android:scaleType="fitXY"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="410dp"
         android:layout_height="230dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:background="@color/background_gray"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,8 +37,11 @@
             android:id="@+id/nutri_pie_chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@color/background_gray"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/nutriScoreLabel"
@@ -115,11 +118,80 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
+        android:layout_marginTop="12sp"
+        android:text="@string/motiv_txt"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/extendedPanelNutriScore"
+        android:layout_width="409dp"
+        android:layout_height="304dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:visibility="invisible">
+
+        <LinearLayout
+            android:id="@+id/hiddenlinearlayout"
+            android:layout_width="10dp"
+            android:layout_height="302dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/nuscoA"
+                android:clickable="false"
+                android:text="" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/nuscoB"
+                android:clickable="false"
+                android:text="" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/nuscoC"
+                android:clickable="false"
+                android:text="" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/nuscoD"
+                android:clickable="false"
+                android:text="" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/nuscoE"
+                android:clickable="false"
+                android:text="" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,22 +2,27 @@ package com.example.junction2019.presenter
 
 import android.app.Activity
 import android.graphics.Color
+import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.junction2019.R
 import com.example.junction2019.model.NuScoModel
 import com.example.junction2019.model.Parameters
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
 import lecho.lib.hellocharts.view.PieChartView
+import khttp.get
 
 @Suppress("DEPRECATION")
 class NutriHistoryActivityPresenter(_activity: Activity) {
 
     private var activity: Activity = _activity
     private var activeBtn : Int = Parameters.BUTTONS[Parameters.BTN_WEEK]
+    private var extendedViewActive : Boolean = false
     val buttons = listOf<Button>(activity.findViewById(R.id.btn_weekly),activity.findViewById(R.id.btn_monthly),activity.findViewById(R.id.btn_yearly))
 
     fun initPieChart() {
@@ -55,15 +60,15 @@ class NutriHistoryActivityPresenter(_activity: Activity) {
         val nuScoText = activity.findViewById<TextView>(R.id.nutriScoreLabel)
 
         // parse data from back-end
-        val nuScore : Char = NuScoModel.getNuScoAverage()
+        val nuScore : String = NuScoModel.getNuScoAverage()
 
         var colorOfScore : Int = activity.getResources().getColor(R.color.nuscoE)
         // update text based on return
         when (nuScore){
-            'A' -> colorOfScore = activity.getResources().getColor(R.color.nuscoA)
-            'B' -> colorOfScore = activity.getResources().getColor(R.color.nuscoB)
-            'C' -> colorOfScore = activity.getResources().getColor(R.color.nuscoC)
-            'D' -> colorOfScore = activity.getResources().getColor(R.color.nuscoD)
+            Parameters.NUTRI_A_CHAR -> colorOfScore = activity.getResources().getColor(R.color.nuscoA)
+            Parameters.NUTRI_B_CHAR -> colorOfScore = activity.getResources().getColor(R.color.nuscoB)
+            Parameters.NUTRI_C_CHAR -> colorOfScore = activity.getResources().getColor(R.color.nuscoC)
+            Parameters.NUTRI_D_CHAR -> colorOfScore = activity.getResources().getColor(R.color.nuscoD)
             else -> colorOfScore = activity.getResources().getColor(R.color.nuscoE)
         }
         nuScoText.text = nuScore.toString()
@@ -90,4 +95,12 @@ class NutriHistoryActivityPresenter(_activity: Activity) {
         }
     }
 
+    fun guiHandleExtendedView() {
+        if (!extendedViewActive) {
+            val hiddenlayout = activity.findViewById<ConstraintLayout>(R.id.extendedPanelNutriScore)
+            hiddenlayout.setVisibility(View.VISIBLE)
+            val hiddenlinearlayout = activity.findViewById<LinearLayout>(R.id.hiddenlinearlayout)
+            hiddenlinearlayout.visibility = View.VISIBLE
+        }
+    }
 }

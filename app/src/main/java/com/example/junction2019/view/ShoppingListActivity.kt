@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.android.volley.toolbox.Volley
 import com.example.junction2019.R
+import com.example.junction2019.jsonmodels.Product
 import com.example.junction2019.model.NuScoModel
 import com.example.junction2019.model.Products
 import com.example.junction2019.presenter.ShoppinglistPresenter
@@ -26,9 +27,6 @@ class ShoppingListActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shoppinglist_layout)
 
-        NuScoModel.activity = this
-
-
         val list = findViewById<ListView>(R.id.productList)
         val productToRetrieve = findViewById<TextView>(R.id.search)
         val search = findViewById<ImageView>(R.id.imageView6)
@@ -36,12 +34,6 @@ class ShoppingListActivity: AppCompatActivity() {
         search.setOnClickListener{
             // get the query text from the edit box
             var queryProduct = productToRetrieve.text.toString()
-
-            //url: http://127.0.0.1:5000/autocomplete/
-            //val url = "http://127.0.0.1:5000/autocomplete/" + queryProduct
-
-
-
 
             // query data from model
             var queriedProducts = NuScoModel.queryProductsByKeyWord(queryProduct)
@@ -61,10 +53,10 @@ class ShoppingListActivity: AppCompatActivity() {
 
 
 
-    private class MyCustomAdapter(context: Context, list: Array<Products>): BaseAdapter(){
+    private class MyCustomAdapter(context: Context, list: List<Product>): BaseAdapter(){
 
         private val mycontext: Context
-        private val myList: Array<Products>
+        private val myList: List<Product>
 
         init {
             mycontext = context
@@ -89,7 +81,7 @@ class ShoppingListActivity: AppCompatActivity() {
                 val dot = rowMain.findViewById<ImageView>(R.id.imageView2)
                 dot.setColorFilter(ContextCompat.getColor(mycontext, R.color.dot), android.graphics.PorterDuff.Mode.MULTIPLY)
             }
-            rowMain.findViewById<TextView>(R.id.product).text = myList[position].name
+            rowMain.findViewById<TextView>(R.id.product).text = myList[position].suggestion
             return rowMain
 
         }

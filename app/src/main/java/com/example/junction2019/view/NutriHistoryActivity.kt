@@ -3,6 +3,7 @@ package com.example.junction2019.view
 import android.app.slice.Slice
 import android.graphics.Color
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -37,6 +38,9 @@ class NutriHistoryActivity : AppCompatActivity() {
         btn_weekly.setOnClickListener(HandleGrouppedButtons(this,presenter))
         btn_monthly.setOnClickListener(HandleGrouppedButtons(this,presenter))
         btn_yearly.setOnClickListener(HandleGrouppedButtons(this,presenter))
+        nutriScoreLabel.setOnClickListener(View.OnClickListener {
+            presenter.guiHandleExtendedView()
+        })
 
     }
 
@@ -52,12 +56,13 @@ class NutriHistoryActivity : AppCompatActivity() {
 
         override fun onValueSelected(arcIndex: Int, value: SliceValue?) {
             Log.d("TAG","arc index is $arcIndex with a value of $value")
+            var nusco_score = NuScoModel.getNuScoAverage()
             when (arcIndex) {
-                Parameters.NUTRI_A -> NuScoModel.nuSco = Parameters.NUTRI_A_CHAR
-                Parameters.NUTRI_B -> NuScoModel.nuSco = Parameters.NUTRI_B_CHAR
-                Parameters.NUTRI_C -> NuScoModel.nuSco = Parameters.NUTRI_C_CHAR
-                Parameters.NUTRI_D -> NuScoModel.nuSco = Parameters.NUTRI_D_CHAR
-                else -> NuScoModel.nuSco = Parameters.NUTRI_E_CHAR
+                Parameters.NUTRI_A -> nusco_score = Parameters.NUTRI_A_CHAR
+                Parameters.NUTRI_B -> nusco_score = Parameters.NUTRI_B_CHAR
+                Parameters.NUTRI_C -> nusco_score = Parameters.NUTRI_C_CHAR
+                Parameters.NUTRI_D -> nusco_score = Parameters.NUTRI_D_CHAR
+                else -> nusco_score = Parameters.NUTRI_E_CHAR
             }
             presenter.initNuScoreText()
         }

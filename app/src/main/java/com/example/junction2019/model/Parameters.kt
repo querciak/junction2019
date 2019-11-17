@@ -9,11 +9,11 @@ class Parameters {
         val NUTRI_E: Int = 4
         val INNER_CIRCLE_RATIO: Float = 0.80f
 
-        val NUTRI_A_CHAR: Char = 'A'
-        val NUTRI_B_CHAR: Char = 'B'
-        val NUTRI_C_CHAR: Char = 'C'
-        val NUTRI_D_CHAR: Char = 'D'
-        val NUTRI_E_CHAR: Char = 'E'
+        val NUTRI_A_CHAR: String = "A"
+        val NUTRI_B_CHAR: String = "B"
+        val NUTRI_C_CHAR: String = "C"
+        val NUTRI_D_CHAR: String = "D"
+        val NUTRI_E_CHAR: String = "E"
 
         val BTN_WEEK : Int = 0
         val BTN_MONTH : Int = 1
